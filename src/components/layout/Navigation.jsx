@@ -1,13 +1,8 @@
 import { useState } from 'react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react';
+import { navigationLinks } from '../../data/homepage.js';
 
-const links = [
-  { href: '#approach', label: 'Our approach' },
-  { href: '#campus', label: 'Life at Tulas' },
-  { href: '#admissions', label: 'Admissions' },
-];
-
-export default function Navigation() {
+export default function Navigation({ theme, onToggleTheme }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function closeMenu() {
@@ -31,9 +26,13 @@ export default function Navigation() {
         {isOpen ? <X size={21} /> : <Menu size={21} />}
       </button>
       <nav className={`site-nav${isOpen ? ' is-open' : ''}`} id="primary-navigation" aria-label="Main navigation">
-        {links.map((link) => (
+        {navigationLinks.map((link) => (
           <a href={link.href} key={link.href} onClick={closeMenu}>{link.label}</a>
         ))}
+        <button className="theme-toggle" type="button" onClick={onToggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`} aria-pressed={theme === 'dark'}>
+          {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
+          <span>Switch theme</span>
+        </button>
         <a className="nav-cta" href="#contact" onClick={closeMenu}>Get in touch <ArrowUpRight size={15} /></a>
       </nav>
     </header>
